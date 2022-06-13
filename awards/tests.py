@@ -11,3 +11,7 @@ class TestProfile(TestCase):
     def tearDown(self):
         self.user.delete()
         
+    def test_new_profile(self):
+        self.assertIsInstance(self.user.profile, Profile)
+        self.user.save()
+        self.assertIsInstance(self.user.profile, Profile)
