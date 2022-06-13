@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from awards.models import Project, User
 
-# Create your views here.
+
+
+def home(request):
+    '''
+    View function that renders home
+    '''
+    projects = Project.objects.all()
+    users = User.objects.all()
+
+    return render(request, 'home.html')
+
