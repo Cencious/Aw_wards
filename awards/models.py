@@ -12,4 +12,4 @@ class Profile(models.Model):
     # phone_number = PhoneField(max_length=15, blank=True)
 
     def __str__(self):
-        
+        return f'{self.user.username} profile'
