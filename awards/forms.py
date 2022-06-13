@@ -22,3 +22,12 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['profile_pic', 'bio']
 
+class ProjectUploadForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['title', 'project_image', 'description', 'link' ]
+
+    def form_valid(self, form):
+        form.instance.user = self.request.profile
+        return super().form_valid(form)
+
