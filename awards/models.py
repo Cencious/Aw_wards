@@ -11,5 +11,22 @@ class Profile(models.Model):
     profile_pic = CloudinaryField('image')
     # phone_number = PhoneField(max_length=15, blank=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=60)
+    project_image =CloudinaryField('project_image', null=True)
+    description = models.TextField()
+    link = models.CharField(max_length=20)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    prof_ref = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='projects', null=True)
+
+    class Meta:
+        ordering =['pub_date']
+    
+   
