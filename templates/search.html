@@ -21,11 +21,20 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
+.search-bar {
+width: 100%;
+max-width: 700px;
+background: rgba(255, 255, 255, 0.2);
+display: flex;
+align-items: center;
+border-radius: 60px;
+padding: 10px 20px;
+}
 </style>
 </head>
 <body>
     <div class="container">
-        <form action="">
+        <form action="",  class="search-bar">
             <input type="text"placeholder="Search here..." name="q">
             <button type="submit"><img src="../static/images/searchicon.png"></button>
         </form>
