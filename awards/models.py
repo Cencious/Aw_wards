@@ -47,8 +47,32 @@ class Project(models.Model):
         else:
             return 0
 
-    
     @classmethod
     def search_project(cls, search_term):
         project = cls.objects.filter(title__icontains=search_term)
         return project
+
+class Rating(models.Model):
+    RATE_CHOICES = [
+    (10,'10-Outstanding'),
+    (9,'9-Exceeds Expectations'),
+    (8,'8-Excellent'),
+    (7,'7-Good'),
+    (6,'6-Barely Above Average'),
+    (5,'5-Average'),
+    (4,'4-Poor'),
+    (3,'3-Awful'),
+    (2,'2-Dreadful'),
+    (1,'1-Troll'),
+]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    review = models.TextField(null=True)
+    rate_design = models.PositiveSmallIntegerField(choices = RATE_CHOICES)
+    rate_usability = models.PositiveSmallIntegerField(choices = RATE_CHOICES)
+    rate_content = models.PositiveSmallIntegerField(choices = RATE_CHOICES)
+
+
+    def __str__(self):
+        return self.user.username
