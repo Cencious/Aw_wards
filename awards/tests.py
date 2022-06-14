@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import Profile
-from django.contrib.auth import User
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
@@ -11,7 +11,8 @@ class TestProfile(TestCase):
     def tearDown(self):
         self.user.delete()
         
-    def test_new_profile(self):
-        self.assertIsInstance(self.user.profile, Profile)
-        self.user.save()
-        self.assertIsInstance(self.user.profile, Profile)
+    def setUp(self):
+        self.profile = Profile(user='kakan', bio='Never say never', profile_pic='cloudlink.cloud')
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profile, Profile))
