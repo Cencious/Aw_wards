@@ -31,3 +31,24 @@ class ProjectUploadForm(forms.ModelForm):
         form.instance.user = self.request.profile
         return super().form_valid(form)
 
+class RateForm(forms.ModelForm):
+    RATE_CHOICES = [
+    (10,'10-Outstanding'),
+    (9,'9-Exceeds Expectations'),
+    (8,'8-Excellent'),
+    (7,'7-Good'),
+    (6,'6-Barely Above Average'),
+    (5,'5-Average'),
+    (4,'4-Poor'),
+    (3,'3-Awful'),
+    (2,'2-Dreadful'),
+    (1,'1-Troll'),
+]
+
+    rate_design = forms.ChoiceField(choices=RATE_CHOICES, widget = forms.Select(), required = True)
+    rate_usability = forms.ChoiceField(choices=RATE_CHOICES, widget = forms.Select(), required = True)
+    rate_content = forms.ChoiceField(choices=RATE_CHOICES, widget = forms.Select(), required = True)
+
+    class Meta:
+        model = Rating
+        fields = ['rate_design', 'rate_usability', 'rate_content' ]
