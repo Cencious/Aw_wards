@@ -41,7 +41,7 @@ class ListProjectView(generics.ListAPIView):
 def search_results(request):
     if 'project' in request.GET and request.GET["project"]:
         search_term = request.GET.get("project")
-        searched_projects = Project.search_project(search_term)
+        searched_projects = Project.search_by_title(search_term).all()
         message = f"{search_term}"
         return render(request, 'search.html', {"message":message,"projects": searched_projects})
     else:
@@ -50,7 +50,9 @@ def search_results(request):
 
 @login_required
 def profile(request):
-    projects = request.user.profile.projects.all()
+    current_user = request.user
+    user= current_user
+    projects = Project.search_by_user(user)
     return render(request, 'profile.html', {"projects":projects})
 
 class ListProfileView(generics.ListAPIView):
@@ -67,7 +69,7 @@ def update(request):
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES,
-        instance=request.user.profile)
+        instance=request.user)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -75,7 +77,7 @@ def update(request):
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        p_form = ProfileUpdateForm(instance=request.user)
     context = {
         'u_form': u_form,
         'p_form': p_form
@@ -90,7 +92,7 @@ def upload_project(request):
         form = ProjectUploadForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit = False)
-            project.save()
+            project.save_project()
             messages.success(request, f'Successfully uploaded your Project!')
             return redirect('home')
     else:
