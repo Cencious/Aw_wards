@@ -1,7 +1,7 @@
 ## App Name
 * Aw_wards
 
-![Alt text](./static/screenshot/cover.png "Optional Title")
+![Alt text](./static/images/landing.png "Optional Title")
 
 ## Author
 * Innoncencia Kakan.
@@ -10,16 +10,19 @@
 The Gallery is personal gallery application that display photos for others to see.
 
 ## Live link:
-
+https://el-awards.herokuapp.com/
 
 ##
-![Alt text](./static/screenshot/Screenshot.png "Optional Title")
+![Alt text](./static/images/login.png "Optional Title")
 
 
 
 ## User stories
 
 * A user can view posted projects and their details.
+
+![Alt text](./static/images/my%20projects.png "Optional Title")
+
 * A user can post a project to be rated/reviewed
 * A user can rate/review other users' projects.
 * A user can search for projects.
@@ -28,6 +31,19 @@ The Gallery is personal gallery application that display photos for others to se
 
 **BDD** <br/>
 ****
+Click on the project link and browse though the projects as you view the functionality and content.
+
+If you wish to cast a vote or add your own project, tap on the respective icons and get redirected to the signup/signin page.
+
+Edit your profile by addig profile pic, name, bio and email.
+
+![Alt text](./static/images/upload.png "Optional Title")
+
+
+
+Add as many projects as you would like and get ready to have them vetted by other users.
+
+![Alt text](./static/images/register.png "Optional Title")
 
 <br/>
 
@@ -45,6 +61,7 @@ The Gallery is personal gallery application that display photos for others to se
 ## Technologies Used
 * Python3 <br>
 * Django4 <br>
+* Cloudinary <br>
 * Heroku- for deployment
 
 ## Support and contact details
