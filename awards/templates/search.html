@@ -1,29 +1,39 @@
-{% extends 'base.html'%} {% block content %}
-<div class="container"><br><br>
-    <div class="row text-center">
-        {% if projects%}
-        <h2>Found {{ projects|length }} projects with searched term '{{message}}'</h2>
-        {% else %}
-        <h2> Found 0 projects for the search term {{message}}</h2>
-        {% endif %}
-    </div>
+
+
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container mt-5">
+
+<div class="row">
+    {% if projects %}
+    <p>Found {{ projects|length }} of searched term {{message}}</p>
+    {% else %}
+    <p> Found 0 projects for the search term {{message}}</p>
+    {% endif %}
+
 </div>
-<div class="container">
-    <div class="row">
-        {% if projects %} {% for project in projects %}
-        <div class="col-md-4 mt-3">
-            <div class="card zoom" id="cardoffwhite">
-                <a href="{% url 'project' project.id %}"><img src="{{project.project_image.url}}" style="width:100%;height:56%;" class="img-responsive" alt="Image"></a><br>
-                <hr>
-                <div class="card-body">
-                    <p><strong>Title:</strong> {{project.title|title}}</p>
-                    <p><strong>Description:</strong> {{project.description|title|truncatechars:50}}</p>
-                    <p class=""><strong>Average Rating:</strong> {{project.average_ratings|floatformat}}</p>
-                    <p><strong>Link:</strong> <a target="_blank" href="{{project.link}}">Link to Project</a></p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+
+<div class="row">
+
+{% if projects %}
+    {% for projects in projects %}
+    <div class="col-sm-6">
+        <img src="{{projects.project_image.url}}" height="200px" width="300px" alt="">
+        
     </div>
+    <div class="col-md-4">
+        <h3><u>{{project.title}}</u></h3>
+        <h4>Description:</h4> <p>{{projects.description}}</p>
+        <p class="text-muted"> Developed by:  {{projects.profile}} </p>
+
+        <a href="{{projects.link}}" class="btn btn-info me-3" target="_blank">Project Link</a>
+        <a href="#" class="btn btn-info">Project Rating</a>
+        
+
+    </div>
+    {% endfor %}
+{% endif %}
 </div>
-{% endif %} {% endblock %}
+<a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
+</div>
+{% endblock %}
