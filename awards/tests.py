@@ -4,23 +4,33 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 
-class TestProfile(TestCase):
+class ProfileTest(TestCase):
     def setUp(self):
-        self.test_user = User.objects.create(username='kakan')
+        self.test_user = User.objects.create(username='kakan', password='zee12345')
+        self.test_user.save()
+        
+    # def setUp(self):
+        self.test_profile = Profile(User=self.test_user, bio='Never say never',name='cencious', profile_pic='cloudlink.cloud')
 
+    def test_instance(self):
+        self.assertTrue(isinstance(self.test_profile, Profile))
+
+
+    def save_test(self):
+        self.test_profile.save()
+        self.assertEqual(len(Profile.objects.all()), 1)
+
+    
     def tearDown(self):
         self.test_user.delete()
         
-    def setUp(self):
-        self.test_profile = Profile(user='kakan', bio='Never say never', profile_pic='cloudlink.cloud')
-
-    def test_instance(self):
-        self.assertTrue(isinstance(self.profile, Profile))
 
 
 class RatingTestClass(TestCase):
     def setUp(self):
-        self.test_rating = Rating(user='kakan', project='News api', review='out_standing', rate_design=10, rate_usability=9, rate_content=8)
+        self.test_user = User.objects.create(username='kakan', password='zee12345')
+        self.test_user.save()
+        self.test_rating = Rating(user=self.test, project='News api', review='out_standing', rate_design=10, rate_usability=9, rate_content=8)
 
         
     def test_instance(self):
