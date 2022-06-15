@@ -15,16 +15,21 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.name
+    
 
 
 class Project(models.Model):
     title = models.CharField(max_length=60)
     project_image =CloudinaryField('project_image', null=True)
     description = models.TextField()
-    link = models.CharField(max_length=20)
+    link = models.CharField(max_length=300)
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     prof_ref = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='projects', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save_project(self):
+        self.save()
 
     class Meta:
         ordering =['pub_date']
@@ -48,9 +53,19 @@ class Project(models.Model):
             return 0
 
     @classmethod
-    def search_project(cls, search_term):
-        project = cls.objects.filter(title__icontains=search_term)
-        return project
+    def search_by_title(cls,search_term):
+        '''
+        method to search projects based on name
+        '''
+        
+        title = cls.objects.filter(title__icontains=search_term).all()
+        return title
+
+    @classmethod
+    def search_by_user(cls,user):
+        projects = cls.objects.filter(user=user)
+        return projects
+
 
 class Rating(models.Model):
     RATE_CHOICES = [
@@ -76,3 +91,8 @@ class Rating(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+
+    def save_rating(self):
+        self.save()
