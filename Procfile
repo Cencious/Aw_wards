@@ -1,1 +1,1 @@
-web: gunicorn aw_wards.wsgi --log-file 
+web: gunicorn aw_wards.wsgi --log-file - 
